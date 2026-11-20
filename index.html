@@ -4,9 +4,24 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
-<title>Retext PDF</title>
-<meta name="description" content="Edit the text in any PDF right in your browser. Change lines, add text, erase, download. Files never leave your device.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%232445D4%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Cpath d=%22M6 3h8l4 4v14H6z%22/%3E%3Cpath d=%22M9.5 11h5M12 11v6%22/%3E%3C/svg%3E">
+<title>Retext PDF · Free PDF text editor</title>
+<meta name="description" content="Edit the text in any PDF right in your browser. Free, no sign-up, and your files never leave your device.">
+<link rel="canonical" href="https://retext-pdf.vercel.app/">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#FBFBFC" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1C1F25" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Retext PDF">
+<meta property="og:title" content="Retext PDF · Free PDF text editor">
+<meta property="og:description" content="Change the text in any PDF right in your browser. Free, no sign-up, nothing uploaded.">
+<meta property="og:url" content="https://retext-pdf.vercel.app/">
+<meta property="og:image" content="https://retext-pdf.vercel.app/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Noto+Sans:wght@400;700&display=swap">
@@ -143,7 +158,7 @@ body[data-tool="add"] .txt{cursor:text}
 <main id="pages" aria-label="PDF pages"><div class="loading">Opening…</div></main>
 
 <div class="dock-wrap">
-  <div class="hint" id="hint">Tap any text to change it</div>
+  <div class="hint" id="hint">Tap text to change it, drag to move</div>
   <nav class="dock" aria-label="Tools">
     <button class="tool" type="button" data-tool="edit" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h11M9.5 6v12M18 7v10M16.25 7h3.5M16.25 17h3.5"/></svg>Edit text</button>
     <button class="tool" type="button" data-tool="add" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 6h9M8 6v12M17.5 9v8M13.5 13h8"/></svg>Add text</button>
@@ -519,7 +534,7 @@ pagesEl.addEventListener("click", ev => {
     const P = state.pages[+hit.dataset.p], l = P && P.lines.find(x => x.key === +hit.dataset.k);
     if (!l) return;
     const before = snap(), e = editFromLine(P, l);
-    state.edits.push(e); drawHits(P); openEditor(P, e, before);
+    state.edits.push(e); drawHits(P); drawEdits(P); openEditor(P, e, before);
     return;
   }
   if (state.tool === "add" && !justClosed){
